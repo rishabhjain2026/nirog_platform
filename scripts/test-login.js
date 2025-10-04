@@ -22,6 +22,16 @@ async function testLogin() {
       console.log('✅ Login successful!');
       console.log('User role:', data.user.role);
       console.log('Redirect should go to:', data.user.role === 'student' ? '/dashboard/student' : '/dashboard/patient');
+      
+      // Test the dashboard page
+      console.log('\n🔍 Testing dashboard page...');
+      const dashboardResponse = await fetch(`http://localhost:3000/dashboard/${data.user.role}`);
+      console.log('Dashboard status:', dashboardResponse.status);
+      if (dashboardResponse.status === 200) {
+        console.log('✅ Dashboard page loads successfully!');
+      } else {
+        console.log('❌ Dashboard page failed to load');
+      }
     } else {
       console.log('❌ Login failed');
     }
